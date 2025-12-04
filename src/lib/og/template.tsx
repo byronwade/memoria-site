@@ -166,7 +166,7 @@ export async function createOGImage({
 						color: ogColors.tertiary,
 					}}
 				>
-					memoria.dev
+					memoria.byronwade.com
 				</span>
 			</div>
 		</div>,

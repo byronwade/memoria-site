@@ -3,7 +3,7 @@ export const siteConfig = {
 	tagline: "The Memory Your AI Lacks",
 	description:
 		"An MCP server that prevents your AI from breaking code by revealing hidden file dependencies through git forensics.",
-	url: "https://memoria.dev",
+	url: "https://memoria.byronwade.com",
 	author: {
 		name: "Byron Wade",
 		url: "https://github.com/byronwade",

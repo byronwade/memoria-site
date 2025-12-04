@@ -170,7 +170,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
 					</span>
 				</span>
 				<span style={{ fontSize: "16px", color: ogColors.tertiary }}>
-					memoria.dev
+					memoria.byronwade.com
 				</span>
 			</div>
 		</div>,
