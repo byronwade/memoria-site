@@ -1,14 +1,22 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { loadGeistFont } from "@/lib/og/fonts";
 import { ogColors } from "@/lib/seo/constants";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const alt = "Memoria - The Memory Your AI Lacks";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function Image() {
 	const geistFont = await loadGeistFont();
+
+	// Read the SVG logo and change fill to white for dark background
+	const logoPath = join(process.cwd(), "public", "memoria.svg");
+	const logoSvg = await readFile(logoPath, "utf-8");
+	const whiteLogo = logoSvg.replace('fill="#000000"', 'fill="#ffffff"');
+	const logoBase64 = `data:image/svg+xml;base64,${Buffer.from(whiteLogo).toString("base64")}`;
 
 	return new ImageResponse(
 		<div
@@ -50,33 +58,14 @@ export default async function Image() {
 			/>
 
 			{/* Logo mark */}
-			<div
+			<img
+				src={logoBase64}
+				width="120"
+				height="120"
 				style={{
-					width: "80px",
-					height: "80px",
-					borderRadius: "20px",
-					background: `linear-gradient(135deg, ${ogColors.gradientStart}, ${ogColors.gradientEnd})`,
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "center",
 					marginBottom: "32px",
 				}}
-			>
-				<svg
-					width="48"
-					height="48"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="white"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				>
-					<path d="M12 2L2 7l10 5 10-5-10-5z" />
-					<path d="M2 17l10 5 10-5" />
-					<path d="M2 12l10 5 10-5" />
-				</svg>
-			</div>
+			/>
 
 			{/* Title */}
 			<h1

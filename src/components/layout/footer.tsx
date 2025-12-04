@@ -10,8 +10,13 @@ export function Footer() {
 					<div className="flex items-center gap-4">
 						<Link
 							href="/"
-							className="font-medium text-foreground hover:text-accent transition-colors"
+							className="flex items-center gap-2 font-medium text-foreground hover:text-accent transition-colors"
 						>
+							<img
+								src="/memoria.svg"
+								alt="Memoria"
+								className="w-4 h-4 dark:invert"
+							/>
 							Memoria
 						</Link>
 						<span className="hidden sm:inline">·</span>

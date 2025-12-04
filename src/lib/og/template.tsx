@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { ogColors } from "@/lib/seo/constants";
 import { loadGeistFont } from "./fonts";
@@ -14,6 +16,12 @@ export async function createOGImage({
 	category,
 }: OGTemplateProps): Promise<ImageResponse> {
 	const geistFont = await loadGeistFont();
+
+	// Read the SVG logo and change fill to white for dark background
+	const logoPath = join(process.cwd(), "public", "memoria.svg");
+	const logoSvg = await readFile(logoPath, "utf-8");
+	const whiteLogo = logoSvg.replace('fill="#000000"', 'fill="#ffffff"');
+	const logoBase64 = `data:image/svg+xml;base64,${Buffer.from(whiteLogo).toString("base64")}`;
 
 	return new ImageResponse(
 		<div
@@ -64,32 +72,7 @@ export async function createOGImage({
 				}}
 			>
 				<div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-					<div
-						style={{
-							width: "48px",
-							height: "48px",
-							borderRadius: "12px",
-							background: `linear-gradient(135deg, ${ogColors.gradientStart}, ${ogColors.gradientEnd})`,
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-						}}
-					>
-						<svg
-							width="28"
-							height="28"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="white"
-							strokeWidth="2"
-							strokeLinecap="round"
-							strokeLinejoin="round"
-						>
-							<path d="M12 2L2 7l10 5 10-5-10-5z" />
-							<path d="M2 17l10 5 10-5" />
-							<path d="M2 12l10 5 10-5" />
-						</svg>
-					</div>
+					<img src={logoBase64} width="48" height="48" />
 					<span
 						style={{
 							fontSize: "28px",
