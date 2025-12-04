@@ -1,11 +1,11 @@
-export { siteConfig, ogColors } from "./constants";
+export { ogColors, siteConfig } from "./constants";
 export { generatePageMetadata } from "./metadata";
 export {
-  generateWebSiteSchema,
-  generateSoftwareApplicationSchema,
-  generateOrganizationSchema,
-  generateFAQSchema,
-  generateHowToSchema,
-  generateBreadcrumbSchema,
-  generateTechArticleSchema,
+	generateBreadcrumbSchema,
+	generateFAQSchema,
+	generateHowToSchema,
+	generateOrganizationSchema,
+	generateSoftwareApplicationSchema,
+	generateTechArticleSchema,
+	generateWebSiteSchema,
 } from "./schema";

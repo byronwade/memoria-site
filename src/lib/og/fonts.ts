@@ -1,23 +1,31 @@
 // Font loading for OG images
-// Geist font must be fetched as ArrayBuffer since next/font doesn't work in ImageResponse
+// Need to use TTF format since ImageResponse doesn't support woff2
 
-let geistFontCache: ArrayBuffer | null = null;
+let interFontCache: ArrayBuffer | null = null;
 
-export async function loadGeistFont(): Promise<ArrayBuffer> {
-  if (geistFontCache) {
-    return geistFontCache;
-  }
+export async function loadGeistFont(): Promise<ArrayBuffer | null> {
+	if (interFontCache) {
+		return interFontCache;
+	}
 
-  // Fetch Geist font from Google Fonts
-  const response = await fetch(
-    "https://fonts.gstatic.com/s/geist/v1/gyByhwUxId8gMEwcGFU8WdYwblk.woff2",
-    { cache: "force-cache" }
-  );
+	try {
+		// Fetch Inter font in TTF format
+		const response = await fetch(
+			"https://cdn.jsdelivr.net/gh/rsms/inter@v4.0/extras/ttf/Inter-Regular.ttf",
+			{
+				cache: "force-cache",
+			},
+		);
 
-  if (!response.ok) {
-    throw new Error("Failed to load Geist font");
-  }
+		if (!response.ok) {
+			console.warn("Font loading failed, using system font");
+			return null;
+		}
 
-  geistFontCache = await response.arrayBuffer();
-  return geistFontCache;
+		interFontCache = await response.arrayBuffer();
+		return interFontCache;
+	} catch {
+		console.warn("Font loading failed, using system font");
+		return null;
+	}
 }

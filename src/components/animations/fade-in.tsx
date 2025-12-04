@@ -4,40 +4,40 @@ import { motion } from "framer-motion";
 import { fadeInUp } from "@/lib/motion";
 
 interface FadeInProps {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
+	children: React.ReactNode;
+	delay?: number;
+	className?: string;
 }
 
 export function FadeIn({ children, delay = 0, className = "" }: FadeInProps) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={fadeInUp}
-      transition={{ delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+	return (
+		<motion.div
+			initial="hidden"
+			whileInView="visible"
+			viewport={{ once: true, margin: "-100px" }}
+			variants={fadeInUp}
+			transition={{ delay }}
+			className={className}
+		>
+			{children}
+		</motion.div>
+	);
 }
 
 export function FadeInOnMount({
-  children,
-  delay = 0,
-  className = "",
+	children,
+	delay = 0,
+	className = "",
 }: FadeInProps) {
-  return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={fadeInUp}
-      transition={{ delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+	return (
+		<motion.div
+			initial="hidden"
+			animate="visible"
+			variants={fadeInUp}
+			transition={{ delay }}
+			className={className}
+		>
+			{children}
+		</motion.div>
+	);
 }
