@@ -1,64 +1,27 @@
 "use client";
 
-import { Monitor, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
-type Theme = "light" | "dark" | "system";
-
 export function ThemeToggle() {
-	const [theme, setTheme] = useState<Theme>("system");
 	const [mounted, setMounted] = useState(false);
+	const { theme, setTheme } = useTheme();
 
 	useEffect(() => {
 		setMounted(true);
-		const stored = localStorage.getItem("theme") as Theme | null;
-		if (stored) {
-			setTheme(stored);
-		}
 	}, []);
-
-	useEffect(() => {
-		if (!mounted) return;
-
-		const root = document.documentElement;
-
-		if (theme === "system") {
-			localStorage.removeItem("theme");
-			const systemDark = window.matchMedia(
-				"(prefers-color-scheme: dark)",
-			).matches;
-			root.classList.toggle("dark", systemDark);
-		} else {
-			localStorage.setItem("theme", theme);
-			root.classList.toggle("dark", theme === "dark");
-		}
-	}, [theme, mounted]);
-
-	// Listen for system theme changes
-	useEffect(() => {
-		if (!mounted || theme !== "system") return;
-
-		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-		const handler = (e: MediaQueryListEvent) => {
-			document.documentElement.classList.toggle("dark", e.matches);
-		};
-
-		mediaQuery.addEventListener("change", handler);
-		return () => mediaQuery.removeEventListener("change", handler);
-	}, [theme, mounted]);
-
-	const cycleTheme = () => {
-		const themes: Theme[] = ["light", "dark", "system"];
-		const currentIndex = themes.indexOf(theme);
-		const nextIndex = (currentIndex + 1) % themes.length;
-		setTheme(themes[nextIndex]);
-	};
 
 	if (!mounted) {
 		return (
-			<Button variant="ghost" size="icon" aria-label="Toggle theme">
-				<Monitor className="w-4 h-4 text-muted-foreground" />
+			<Button
+				variant="ghost"
+				size="icon"
+				aria-label="Toggle theme"
+				className="relative h-9 w-9"
+			>
+				<Sun className="h-5 w-5" />
 			</Button>
 		);
 	}
@@ -67,15 +30,15 @@ export function ThemeToggle() {
 		<Button
 			variant="ghost"
 			size="icon"
-			onClick={cycleTheme}
-			aria-label={`Current theme: ${theme}. Click to cycle.`}
-			title={`Theme: ${theme}`}
+			onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+			aria-label={
+				theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+			}
+			className="relative h-9 w-9"
 		>
-			{theme === "light" && <Sun className="w-4 h-4 text-muted-foreground" />}
-			{theme === "dark" && <Moon className="w-4 h-4 text-muted-foreground" />}
-			{theme === "system" && (
-				<Monitor className="w-4 h-4 text-muted-foreground" />
-			)}
+			<Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+			<Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+			<span className="sr-only">Toggle theme</span>
 		</Button>
 	);
 }

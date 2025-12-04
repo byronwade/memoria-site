@@ -1,16 +1,24 @@
-import { ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
+import { Fragment } from "react";
 import { JsonLd } from "@/components/seo/JsonLd";
+import {
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	Breadcrumb as BreadcrumbNav,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { siteConfig } from "@/lib/seo/constants";
 import { generateBreadcrumbSchema } from "@/lib/seo/schema";
 
-interface BreadcrumbItem {
+interface BreadcrumbItemType {
 	label: string;
 	href: string;
 }
 
 interface BreadcrumbProps {
-	items: BreadcrumbItem[];
+	items: BreadcrumbItemType[];
 }
 
 export function Breadcrumb({ items }: BreadcrumbProps) {
@@ -23,34 +31,26 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
 	];
 
 	return (
-		<nav aria-label="Breadcrumb" className="mb-6">
-			<ol className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
-				<li>
-					<Link
-						href="/"
-						className="hover:text-foreground transition-colors flex items-center"
-					>
-						<Home className="w-4 h-4" />
-						<span className="sr-only">Home</span>
-					</Link>
-				</li>
-				{items.map((item, index) => (
-					<li key={item.href} className="flex items-center gap-2">
-						<ChevronRight className="w-4 h-4 flex-shrink-0" />
-						{index === items.length - 1 ? (
-							<span className="text-foreground font-medium">{item.label}</span>
-						) : (
-							<Link
-								href={item.href}
-								className="hover:text-foreground transition-colors"
-							>
-								{item.label}
-							</Link>
-						)}
-					</li>
-				))}
-			</ol>
+		<>
+			<BreadcrumbNav className="mb-6">
+				<BreadcrumbList>
+					{items.map((item, index) => (
+						<Fragment key={item.href}>
+							{index > 0 && <BreadcrumbSeparator />}
+							<BreadcrumbItem>
+								{index === items.length - 1 ? (
+									<BreadcrumbPage>{item.label}</BreadcrumbPage>
+								) : (
+									<BreadcrumbLink asChild>
+										<Link href={item.href}>{item.label}</Link>
+									</BreadcrumbLink>
+								)}
+							</BreadcrumbItem>
+						</Fragment>
+					))}
+				</BreadcrumbList>
+			</BreadcrumbNav>
 			<JsonLd schema={generateBreadcrumbSchema(schemaItems)} />
-		</nav>
+		</>
 	);
 }

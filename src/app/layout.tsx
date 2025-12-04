@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/lib/seo/constants";
 import {
 	generateOrganizationSchema,
@@ -85,19 +86,9 @@ export default function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const themeScript = `
-    (function() {
-      const theme = localStorage.getItem('theme');
-      if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  `;
-
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
-				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
 				<JsonLd
 					schema={[
 						generateWebSiteSchema(),
@@ -109,9 +100,16 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<Header />
-				<main>{children}</main>
-				<Footer />
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</ThemeProvider>
 				<Analytics />
 				<SpeedInsights />
 			</body>

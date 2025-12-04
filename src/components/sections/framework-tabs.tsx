@@ -109,7 +109,7 @@ function CopyButton({ text }: { text: string }) {
 			size="icon"
 			onClick={copy}
 			aria-label="Copy to clipboard"
-			className="h-8 w-8 hover:bg-white/10"
+			className="h-8 w-8 hover:bg-foreground/10"
 		>
 			{copied ? (
 				<Check className="w-4 h-4 text-emerald-400" />
@@ -122,7 +122,6 @@ function CopyButton({ text }: { text: string }) {
 
 export function FrameworkTabs() {
 	const [activeTab, setActiveTab] = useState("claude-desktop");
-	const activeFramework = frameworks.find((f) => f.id === activeTab)!;
 
 	return (
 		<Section background="muted">

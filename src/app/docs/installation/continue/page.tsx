@@ -33,7 +33,7 @@ const continueSteps = [
 
 export default function ContinuePage() {
 	return (
-		<div className="docs-content">
+		<>
 			<Breadcrumb
 				items={[
 					{ label: "Docs", href: "/docs" },
@@ -41,36 +41,37 @@ export default function ContinuePage() {
 					{ label: "Continue", href: "/docs/installation/continue" },
 				]}
 			/>
-			<JsonLd
-				schema={generateHowToSchema(
-					"Install Memoria for Continue",
-					"Set up Memoria for the Continue VS Code extension.",
-					continueSteps,
-				)}
-			/>
-			<h1>Continue</h1>
+			<div className="docs-content">
+				<JsonLd
+					schema={generateHowToSchema(
+						"Install Memoria for Continue",
+						"Set up Memoria for the Continue VS Code extension.",
+						continueSteps,
+					)}
+				/>
+				<h1>Continue</h1>
 
-			<p className="lead">
-				Install Memoria for the Continue VS Code extension.
-			</p>
+				<p className="lead">
+					Install Memoria for the Continue VS Code extension.
+				</p>
 
-			<h2>Step 1: Find Config File</h2>
+				<h2>Step 1: Find Config File</h2>
 
-			<p>Continue stores configuration at:</p>
+				<p>Continue stores configuration at:</p>
 
-			<pre className="code-inline">
-				<code>~/.continue/config.json</code>
-			</pre>
+				<pre className="code-inline">
+					<code>~/.continue/config.json</code>
+				</pre>
 
-			<h2>Step 2: Add Configuration</h2>
+				<h2>Step 2: Add Configuration</h2>
 
-			<p>
-				Continue uses a slightly different config format. Add the following to
-				your <code>config.json</code>:
-			</p>
+				<p>
+					Continue uses a slightly different config format. Add the following to
+					your <code>config.json</code>:
+				</p>
 
-			<pre className="code-block">
-				<code>{`{
+				<pre className="code-block">
+					<code>{`{
   "experimental": {
     "modelContextProtocolServers": [
       {
@@ -83,15 +84,15 @@ export default function ContinuePage() {
     ]
   }
 }`}</code>
-			</pre>
+				</pre>
 
-			<p>
-				If you have an existing config, merge the <code>experimental</code>{" "}
-				section:
-			</p>
+				<p>
+					If you have an existing config, merge the <code>experimental</code>{" "}
+					section:
+				</p>
 
-			<pre className="code-block">
-				<code>{`{
+				<pre className="code-block">
+					<code>{`{
   "models": [...],
   "experimental": {
     "modelContextProtocolServers": [
@@ -105,41 +106,42 @@ export default function ContinuePage() {
     ]
   }
 }`}</code>
-			</pre>
+				</pre>
 
-			<h2>Step 3: Reload VS Code</h2>
+				<h2>Step 3: Reload VS Code</h2>
 
-			<p>
-				Reload your VS Code window (<kbd>Cmd/Ctrl + Shift + P</kbd> &rarr;
-				&quot;Developer: Reload Window&quot;).
-			</p>
-
-			<h2>Verify Installation</h2>
-
-			<p>Ask Continue:</p>
-			<pre className="code-inline">
-				<code>&quot;What MCP tools do you have available?&quot;</code>
-			</pre>
-
-			<p>
-				You should see <code>analyze_file</code> and <code>ask_history</code>{" "}
-				from Memoria.
-			</p>
-
-			<h2>Usage</h2>
-
-			<p>Ask the AI to analyze files before making changes:</p>
-			<pre className="code-inline">
-				<code>&quot;Analyze src/api/route.ts before I refactor it&quot;</code>
-			</pre>
-
-			<div className="callout callout-info">
-				<h4>Experimental Feature</h4>
 				<p>
-					MCP support in Continue is marked as experimental. Check
-					Continue&apos;s documentation for the latest configuration format.
+					Reload your VS Code window (<kbd>Cmd/Ctrl + Shift + P</kbd> &rarr;
+					&quot;Developer: Reload Window&quot;).
 				</p>
+
+				<h2>Verify Installation</h2>
+
+				<p>Ask Continue:</p>
+				<pre className="code-inline">
+					<code>&quot;What MCP tools do you have available?&quot;</code>
+				</pre>
+
+				<p>
+					You should see <code>analyze_file</code> and <code>ask_history</code>{" "}
+					from Memoria.
+				</p>
+
+				<h2>Usage</h2>
+
+				<p>Ask the AI to analyze files before making changes:</p>
+				<pre className="code-inline">
+					<code>&quot;Analyze src/api/route.ts before I refactor it&quot;</code>
+				</pre>
+
+				<div className="callout callout-info">
+					<h4>Experimental Feature</h4>
+					<p>
+						MCP support in Continue is marked as experimental. Check
+						Continue&apos;s documentation for the latest configuration format.
+					</p>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }

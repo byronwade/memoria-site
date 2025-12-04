@@ -64,9 +64,7 @@ export default async function TroubleshootingDetailPage({ params }: Props) {
 	];
 
 	return (
-		<div className="docs-content">
-			<JsonLd schema={generateFAQSchema(faqs)} />
-
+		<>
 			<Breadcrumb
 				items={[
 					{ label: "Docs", href: "/docs" },
@@ -74,49 +72,52 @@ export default async function TroubleshootingDetailPage({ params }: Props) {
 					{ label: item.shortTitle, href: `/docs/troubleshooting/${slug}` },
 				]}
 			/>
+			<div className="docs-content">
+				<JsonLd schema={generateFAQSchema(faqs)} />
 
-			<div className="flex items-center gap-4 mb-4">
-				<div className="p-3 rounded-lg bg-accent/10 text-accent">
-					<Icon className="w-8 h-8" />
+				<div className="flex items-center gap-4 mb-4">
+					<div className="p-3 rounded-lg bg-accent/10 text-accent">
+						<Icon className="w-8 h-8" />
+					</div>
+					<h1 className="mb-0">{item.shortTitle}</h1>
 				</div>
-				<h1 className="mb-0">{item.shortTitle}</h1>
-			</div>
 
-			<p className="lead">{item.description}</p>
+				<p className="lead">{item.description}</p>
 
-			<h2>The Problem</h2>
-			<p>{item.content.problem}</p>
+				<h2>The Problem</h2>
+				<p>{item.content.problem}</p>
 
-			<h2>Common Causes</h2>
-			<ul>
-				{item.content.causes.map((cause, i) => (
-					<li key={i}>{cause}</li>
+				<h2>Common Causes</h2>
+				<ul>
+					{item.content.causes.map((cause, i) => (
+						<li key={i}>{cause}</li>
+					))}
+				</ul>
+
+				<h2>Solutions</h2>
+				{item.content.solutions.map((solution, i) => (
+					<div key={i} className="mb-6">
+						<h3>{solution.title}</h3>
+						<p>{solution.description}</p>
+						{solution.code && (
+							<pre className="code-block">
+								<code>{solution.code}</code>
+							</pre>
+						)}
+					</div>
 				))}
-			</ul>
 
-			<h2>Solutions</h2>
-			{item.content.solutions.map((solution, i) => (
-				<div key={i} className="mb-6">
-					<h3>{solution.title}</h3>
-					<p>{solution.description}</p>
-					{solution.code && (
-						<pre className="code-block">
-							<code>{solution.code}</code>
-						</pre>
-					)}
-				</div>
-			))}
-
-			{relatedItems && relatedItems.length > 0 && (
-				<RelatedLinks
-					title="Related Issues"
-					items={relatedItems.map((related) => ({
-						title: related!.shortTitle,
-						href: `/docs/troubleshooting/${related!.slug}`,
-						description: related!.description,
-					}))}
-				/>
-			)}
-		</div>
+				{relatedItems && relatedItems.length > 0 && (
+					<RelatedLinks
+						title="Related Issues"
+						items={relatedItems.map((related) => ({
+							title: related!.shortTitle,
+							href: `/docs/troubleshooting/${related!.slug}`,
+							description: related!.description,
+						}))}
+					/>
+				)}
+			</div>
+		</>
 	);
 }

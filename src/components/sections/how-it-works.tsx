@@ -70,13 +70,13 @@ export function HowItWorks() {
 						variants={fadeInUp}
 						className="relative"
 					>
-						{/* Connector line */}
+						{/* Connector line - positioned to connect between icons */}
 						{index < steps.length - 1 && (
-							<div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-card-border to-transparent z-0" />
+							<div className="hidden lg:block absolute top-8 left-[calc(4rem+1rem)] right-0 h-px bg-gradient-to-r from-border to-transparent" />
 						)}
 
-						<div className="relative z-10">
-							<div className="w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-4">
+						<div className="relative">
+							<div className="w-16 h-16 rounded-2xl border border-accent/20 flex items-center justify-center mb-4 relative z-10 bg-card">
 								<step.icon className="w-7 h-7 text-accent" />
 							</div>
 							<span className="text-xs font-mono text-muted-foreground">

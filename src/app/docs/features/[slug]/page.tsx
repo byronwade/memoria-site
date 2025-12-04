@@ -53,15 +53,7 @@ export default async function FeaturePage({ params }: Props) {
 	const Icon = item.icon;
 
 	return (
-		<div className="docs-content">
-			<JsonLd
-				schema={generateTechArticleSchema(
-					item.title,
-					item.description,
-					`${siteConfig.url}/docs/features/${slug}`,
-				)}
-			/>
-
+		<>
 			<Breadcrumb
 				items={[
 					{ label: "Docs", href: "/docs" },
@@ -69,88 +61,102 @@ export default async function FeaturePage({ params }: Props) {
 					{ label: item.shortTitle, href: `/docs/features/${slug}` },
 				]}
 			/>
-
-			<div className="flex items-center gap-4 mb-4">
-				<div className="p-3 rounded-lg bg-accent/10 text-accent">
-					<Icon className="w-8 h-8" />
-				</div>
-				<div>
-					<h1 className="mb-0">{item.shortTitle}</h1>
-					<p className="text-accent mt-1 mb-0">{item.tagline}</p>
-				</div>
-			</div>
-
-			<p className="lead">{item.description}</p>
-
-			<h2>Overview</h2>
-			<p>{item.content.overview}</p>
-
-			<h2>How It Works</h2>
-			<ol>
-				{item.content.howItWorks.map((step) => (
-					<li key={step.step}>
-						<strong>{step.title}</strong>: {step.description}
-					</li>
-				))}
-			</ol>
-
-			<h2>Technical Details</h2>
-			<p>{item.content.technicalDetails}</p>
-
-			<h2>Use Cases</h2>
-			<div className="space-y-4">
-				{item.content.useCases.map((useCase, i) => (
-					<div key={i}>
-						<h3>{useCase.title}</h3>
-						<p>{useCase.description}</p>
-					</div>
-				))}
-			</div>
-
-			{item.content.configuration && item.content.configuration.length > 0 && (
-				<>
-					<h2>Configuration Options</h2>
-					<div className="overflow-x-auto">
-						<table className="w-full text-sm">
-							<thead>
-								<tr className="border-b border-card-border">
-									<th className="text-left py-3 px-4 font-semibold">Option</th>
-									<th className="text-left py-3 px-4 font-semibold">Default</th>
-									<th className="text-left py-3 px-4 font-semibold">
-										Description
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								{item.content.configuration.map((config, i) => (
-									<tr key={i} className="border-b border-card-border">
-										<td className="py-3 px-4">
-											<code>{config.option}</code>
-										</td>
-										<td className="py-3 px-4">
-											<code className="text-accent">{config.default}</code>
-										</td>
-										<td className="py-3 px-4 text-muted-foreground">
-											{config.description}
-										</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-				</>
-			)}
-
-			{relatedItems && relatedItems.length > 0 && (
-				<RelatedLinks
-					title="Related Features"
-					items={relatedItems.map((related) => ({
-						title: related!.shortTitle,
-						href: `/docs/features/${related!.slug}`,
-						description: related!.tagline,
-					}))}
+			<div className="docs-content">
+				<JsonLd
+					schema={generateTechArticleSchema(
+						item.title,
+						item.description,
+						`${siteConfig.url}/docs/features/${slug}`,
+					)}
 				/>
-			)}
-		</div>
+
+				<div className="flex items-center gap-4 mb-4">
+					<div className="p-3 rounded-lg bg-accent/10 text-accent">
+						<Icon className="w-8 h-8" />
+					</div>
+					<div>
+						<h1 className="mb-0">{item.shortTitle}</h1>
+						<p className="text-accent mt-1 mb-0">{item.tagline}</p>
+					</div>
+				</div>
+
+				<p className="lead">{item.description}</p>
+
+				<h2>Overview</h2>
+				<p>{item.content.overview}</p>
+
+				<h2>How It Works</h2>
+				<ol>
+					{item.content.howItWorks.map((step) => (
+						<li key={step.step}>
+							<strong>{step.title}</strong>: {step.description}
+						</li>
+					))}
+				</ol>
+
+				<h2>Technical Details</h2>
+				<p>{item.content.technicalDetails}</p>
+
+				<h2>Use Cases</h2>
+				<div className="space-y-4">
+					{item.content.useCases.map((useCase, i) => (
+						<div key={i}>
+							<h3>{useCase.title}</h3>
+							<p>{useCase.description}</p>
+						</div>
+					))}
+				</div>
+
+				{item.content.configuration &&
+					item.content.configuration.length > 0 && (
+						<>
+							<h2>Configuration Options</h2>
+							<div className="overflow-x-auto">
+								<table className="w-full text-sm">
+									<thead>
+										<tr className="border-b border-card-border">
+											<th className="text-left py-3 px-4 font-semibold">
+												Option
+											</th>
+											<th className="text-left py-3 px-4 font-semibold">
+												Default
+											</th>
+											<th className="text-left py-3 px-4 font-semibold">
+												Description
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{item.content.configuration.map((config, i) => (
+											<tr key={i} className="border-b border-card-border">
+												<td className="py-3 px-4">
+													<code>{config.option}</code>
+												</td>
+												<td className="py-3 px-4">
+													<code className="text-accent">{config.default}</code>
+												</td>
+												<td className="py-3 px-4 text-muted-foreground">
+													{config.description}
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</div>
+						</>
+					)}
+
+				{relatedItems && relatedItems.length > 0 && (
+					<RelatedLinks
+						title="Related Features"
+						items={relatedItems.map((related) => ({
+							title: related!.shortTitle,
+							href: `/docs/features/${related!.slug}`,
+							description: related!.tagline,
+						}))}
+					/>
+				)}
+			</div>
+		</>
 	);
 }

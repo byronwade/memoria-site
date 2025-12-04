@@ -33,35 +33,38 @@ export function Header() {
 		>
 			<Container>
 				<div className="flex items-center justify-between h-16">
-					{/* Logo */}
-					<Link href="/" className="text-xl font-bold">
-						Memoria
-					</Link>
+					{/* Logo + Nav */}
+					<div className="flex items-center gap-8">
+						<Link href="/" className="text-xl font-bold">
+							Memoria
+						</Link>
 
-					{/* Desktop Nav */}
-					<nav className="hidden md:flex items-center gap-8">
-						{navLinks.map((link) => (
-							<Link
-								key={link.href}
-								href={link.href}
-								className="text-muted-foreground hover:text-foreground transition-colors text-sm"
-							>
-								{link.label}
-							</Link>
-						))}
+						{/* Desktop Nav */}
+						<nav className="hidden md:flex items-center gap-6">
+							{navLinks.map((link) => (
+								<Link
+									key={link.href}
+									href={link.href}
+									className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+								>
+									{link.label}
+								</Link>
+							))}
+						</nav>
+					</div>
+
+					{/* Desktop CTAs */}
+					<div className="hidden md:flex items-center gap-2">
 						<a
 							href="https://github.com/byronwade/memoria"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground transition-colors"
+							className="text-muted-foreground hover:text-foreground transition-colors p-2"
+							aria-label="GitHub"
 						>
 							<Github className="w-5 h-5" />
 						</a>
 						<ThemeToggle />
-					</nav>
-
-					{/* Desktop CTAs */}
-					<div className="hidden md:flex items-center gap-3">
 						<Button variant="outline" size="sm" asChild>
 							<a
 								href="https://github.com/sponsors/byronwade"
@@ -125,6 +128,10 @@ export function Header() {
 								<Heart className="w-5 h-5" />
 								Support
 							</a>
+							<div className="flex items-center gap-2 text-muted-foreground">
+								<span className="text-sm">Theme:</span>
+								<ThemeToggle />
+							</div>
 							<Button className="mt-2" asChild>
 								<Link href="/docs/installation">Get Started</Link>
 							</Button>
