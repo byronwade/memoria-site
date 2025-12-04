@@ -14,8 +14,9 @@ export function Footer() {
 						>
 							<img
 								src="/memoria.svg"
-								alt="Memoria"
+								alt=""
 								className="w-4 h-4 dark:invert"
+								aria-hidden="true"
 							/>
 							Memoria
 						</Link>
@@ -44,6 +45,7 @@ export function Footer() {
 							target="_blank"
 							rel="noopener noreferrer"
 							className="hover:text-foreground transition-colors"
+							aria-label="Follow on X (Twitter)"
 						>
 							<Twitter className="w-4 h-4" />
 						</a>
@@ -52,6 +54,7 @@ export function Footer() {
 							target="_blank"
 							rel="noopener noreferrer"
 							className="hover:text-foreground transition-colors"
+							aria-label="View on GitHub"
 						>
 							<Github className="w-4 h-4" />
 						</a>

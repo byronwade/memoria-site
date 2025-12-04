@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, Check, Copy, Lock } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const installCommand = "npx @byronwade/memoria";
 
@@ -22,8 +23,14 @@ function CopyInput({ text }: { text: string }) {
 
 	return (
 		<Card className="flex items-center gap-2 px-4 py-3 max-w-md mx-auto flex-row">
-			<span className="text-muted-foreground font-mono">$</span>
+			<Label htmlFor="install-command" className="sr-only">
+				Install command
+			</Label>
+			<span className="text-muted-foreground font-mono" aria-hidden="true">
+				$
+			</span>
 			<Input
+				id="install-command"
 				type="text"
 				value={text}
 				readOnly
@@ -55,7 +62,7 @@ export function Hero() {
 			<Container size="md" className="relative z-10">
 				<div className="text-center">
 					{/* Badges */}
-					<motion.div
+					<m.div
 						className="flex items-center justify-center gap-3 flex-wrap"
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -69,6 +76,8 @@ export function Hero() {
 							<img
 								src="https://img.shields.io/npm/v/@byronwade/memoria.svg"
 								alt="npm version"
+								width={80}
+								height={20}
 								className="h-5"
 							/>
 						</a>
@@ -80,6 +89,8 @@ export function Hero() {
 							<img
 								src="https://img.shields.io/github/stars/byronwade/memoria?style=social"
 								alt="GitHub stars"
+								width={90}
+								height={20}
 								className="h-5"
 							/>
 						</a>
@@ -91,33 +102,35 @@ export function Hero() {
 							<img
 								src="https://smithery.ai/badge/@byronwade/memoria"
 								alt="Smithery"
+								width={110}
+								height={20}
 								className="h-5"
 							/>
 						</a>
-					</motion.div>
+					</m.div>
 
 					{/* Small label */}
-					<motion.p
+					<m.p
 						className="mt-4 text-sm text-muted-foreground uppercase tracking-wider font-medium"
 						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.4, delay: 0.05 }}
 					>
 						MCP Server for AI Assistants
-					</motion.p>
+					</m.p>
 
 					{/* Headline - cleaner, lighter weight */}
-					<motion.h1
+					<m.h1
 						className="mt-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-balance"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.1 }}
 					>
 						The Memory Your AI <span className="text-accent">Lacks</span>
-					</motion.h1>
+					</m.h1>
 
 					{/* Subtext */}
-					<motion.p
+					<m.p
 						className="mt-6 text-lg md:text-xl text-muted-foreground max-w-xl mx-auto text-balance"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -125,20 +138,20 @@ export function Hero() {
 					>
 						Prevents your AI from breaking code by revealing hidden file
 						dependencies through git forensics.
-					</motion.p>
+					</m.p>
 
 					{/* Copy input */}
-					<motion.div
+					<m.div
 						className="mt-10"
 						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5, delay: 0.3 }}
 					>
 						<CopyInput text={installCommand} />
-					</motion.div>
+					</m.div>
 
 					{/* Links row */}
-					<motion.div
+					<m.div
 						className="mt-6 flex items-center justify-center gap-6"
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
@@ -156,10 +169,10 @@ export function Hero() {
 							<Lock className="w-3.5 h-3.5" />
 							100% local & private
 						</span>
-					</motion.div>
+					</m.div>
 
 					{/* Terminal preview */}
-					<motion.div
+					<m.div
 						className="mt-16 max-w-2xl mx-auto"
 						initial={{ opacity: 0, y: 30 }}
 						animate={{ opacity: 1, y: 0 }}
@@ -193,7 +206,7 @@ export function Hero() {
 								<div className="mt-1 text-emerald-400">Result: Works</div>
 							</div>
 						</Card>
-					</motion.div>
+					</m.div>
 				</div>
 			</Container>
 		</section>

@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { MotionProvider } from "@/components/motion-provider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/lib/seo/constants";
@@ -106,9 +107,11 @@ export default function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<Header />
-					<main>{children}</main>
-					<Footer />
+					<MotionProvider>
+						<Header />
+						<main>{children}</main>
+						<Footer />
+					</MotionProvider>
 				</ThemeProvider>
 				<Analytics />
 				<SpeedInsights />

@@ -42,8 +42,9 @@ export function Header() {
 						>
 							<img
 								src="/memoria.svg"
-								alt="Memoria"
+								alt=""
 								className="w-6 h-6 dark:invert"
+								aria-hidden="true"
 							/>
 							Memoria
 						</Link>
@@ -99,6 +100,8 @@ export function Header() {
 							variant="ghost"
 							size="icon"
 							onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+							aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+							aria-expanded={mobileMenuOpen}
 						>
 							{mobileMenuOpen ? (
 								<X className="w-6 h-6" />
